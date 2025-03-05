@@ -41,6 +41,13 @@ class AdminController extends Controller
 
     public function FilterProducts ($category) {
 
+        // $request->validate([
+        //     'categoryFilter' => 'required',
+        // ],
+        // [
+        //     'categoryFilter.required' => 'Select an item for category' 
+        // ]);
+
         $products = DB::table('products')
         ->where('category', $category)
         ->get();

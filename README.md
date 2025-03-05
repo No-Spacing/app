@@ -12,4 +12,6 @@
  5. after migrating next type `php artisan db:seed`
  6. then type `npm install && npm run build`.
  7. finally type `composer run dev` to run the program.
- 
+## Login Credentials
+ * Username: admin@email.com
+ * password: Admin123

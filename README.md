@@ -9,6 +9,7 @@
     <br> `The database 'database_name' does not exist on the 'mysql' connection.`
     <br> `Would you like to create it? (yes/no) [yes]`
     <br> type yes to create the database make sure it does not have same database name or it will reset the previous database that saved to your device.
+ 5. after migrating next type `php artisan db:seed`
  6. then type `npm install && npm run build`.
- 7. finally type `composer run dev`.
+ 7. finally type `composer run dev` to run the program.
  

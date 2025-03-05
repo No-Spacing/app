@@ -17,7 +17,7 @@ Route::middleware(['admin'])->group(function () {
     Route::inertia('/dashboard', 'Dashboard'); 
     Route::get('/products', [AdminController::class, 'Products']);
 
-    Route::get('/filter-products/{category}', [AdminController::class, 'FilterProducts']);
+    Route::get('/products/{category}', [AdminController::class, 'FilterProducts']);
     
     Route::inertia('/create-product', 'CreateProduct');
     Route::post('/post-product', [AdminController::class, 'PostProduct']);

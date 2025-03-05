@@ -4,9 +4,15 @@ import { useForm } from '@inertiajs/vue3'
 
 defineOptions({ layout: Layout })
 
-const form = useForm({
-    categories: null
+const formData = useForm({
+    categoryFilter: null,
 })
+
+function filter(){
+    formData.get('/products/' + formData.categoryFilter, {
+        preserveState : true,
+    })
+}
 
 </script>
 <template>
@@ -24,12 +30,16 @@ const form = useForm({
                         append-icon="search"
                         label="Search"
                         ></v-text-field>
-                        <v-form @submit.prevent="filter(category)">
-                            <v-select v-model="category" :items="categories" label="Filter"></v-select>
-                            <v-row class="ml-5"> 
-                                <v-btn type="submit" class="mx-1">Apply Filters</v-btn>
-                                <v-btn href="/products" class="mx-1">Remove Filters</v-btn>
-                            </v-row>
+                        <v-form @submit.prevent="filter" >
+                            <v-select 
+                            class="mb-3" 
+                            v-model="formData.categoryFilter" 
+                            :items="items" 
+                            :error-messages="formData.errors.categoryFilter" 
+                            label="Filter" 
+                            chips></v-select>
+                            <v-btn type="submit" class="mx-1">Apply Filters</v-btn>
+                            <v-btn href="/products" class="mx-1">Remove Filters</v-btn>
                         </v-form>
                     </div>
                     
@@ -38,19 +48,21 @@ const form = useForm({
                         :search="search"
                         :headers="headers"
                         :items="products"
+                        :filter-keys="['name', 'description']"
                         v-model:items-per-page="itemsPerPage">
                         <template v-slot:item.action="{ item }">
                             <v-btn
                                 class="mx-1 mdi mdi-update bg-yellow"
                                 @click="edit(item)"
-                                >
-                                Update
+                                v-tooltip:bottom="'Update'"
+                            >
+
                             </v-btn>
                             <v-btn 
                                 class="mx-1 mdi mdi-trash-can bg-red" 
                                 @click="submit(item.id)"
-                                >
-                                Delete
+                                v-tooltip:bottom="'Delete'"
+                            >
                             </v-btn>
                         </template>
                     </v-data-table>
@@ -83,8 +95,6 @@ const form = useForm({
                                                 <v-text-field
                                                     v-model="form.date_time" 
                                                     type="datetime-local" 
-                                                    name="date" 
-                                                    id="date"
                                                     label="Date & Time"
                                                     :error-messages="$page.props.errors.date_time"
                                                 ></v-text-field>
@@ -121,13 +131,6 @@ export default {
                 { title: 'Actions', value: 'action' },
               
             ],
-            category: null,
-            categories: [
-                'Category 1',
-                'Category 2',
-                'Category 3',
-                'Category 4',
-            ],
             items: [
                 'Category 1',
                 'Category 2',
@@ -140,14 +143,11 @@ export default {
                 category: '',
                 description: '',
                 date_time: '',
-            }
+            },
+            
         }
     },
     methods: {
-
-        filter: function(category) {
-            this.$inertia.get('/filter-products/' + category);
-        },
         
         submit: function (id) {
             if (confirm("Are you sure you want to delete this data?")) {

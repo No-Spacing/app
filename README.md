@@ -5,7 +5,9 @@
  2. rename the `.env.example` file to `.env`.
  3. inside the command prompt type `php artisan key:generate`.
  4. Website uses MYSQL. Please make sure MYSQL is installed to your device before running this commands 
-    * type `php artisan migrate` and this will popup in the command prompt (The database 'database_name' does not exist on the 'mysql' connection.)
+    * type `php artisan migrate` and this will popup in the command prompt
+    <br> `The database 'database_name' does not exist on the 'mysql' connection.`
+    <br> `Would you like to create it? (yes/no) [yes]`
     <br> type yes to create the database make sure it does not have same database name or it will reset the previous database that saved to your device.
  6. then type `npm install && npm run build`.
  7. finally type `composer run dev`.

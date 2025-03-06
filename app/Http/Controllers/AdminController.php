@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Product;
 
-use App\Models\User;
 
 use Inertia\Inertia;
 
@@ -32,6 +31,22 @@ class AdminController extends Controller
             return back()->with('message','Invalid credentials');
         }
 
+    }
+
+    public function RegisterUser (Request $request){
+
+        $request->validate([
+            'username' => [ 'required', 'unique:admins', 'min:6' ],
+            'password' => [ 'required', 'confirmed', 'min:6' ]
+        ]);
+
+        DB::table('admins')
+        ->insert([
+            'username' => $request->username,
+            'password' => hash::make($request->password),
+        ]);
+
+        return redirect('')->with('snackbar', true);
     }
 
     public function Products () {

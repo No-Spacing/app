@@ -10,6 +10,10 @@ use App\Http\Controllers\AdminController;
 
 Route::post('/PostLogin', [AdminController::class, 'PostLogin'])->name('post.login');
 
+Route::inertia('/register', 'Auth/Register');
+
+Route::post('/register-user', [AdminController::class, 'RegisterUser']);
+
 Route::middleware(['admin'])->group(function () {
 
     Route::inertia('/', 'Auth/Login');

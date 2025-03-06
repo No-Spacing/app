@@ -34,8 +34,7 @@ function filter(){
                             <v-select 
                             class="mb-3" 
                             v-model="formData.categoryFilter" 
-                            :items="items" 
-                            :error-messages="formData.errors.categoryFilter" 
+                            :items="items"
                             label="Filter" 
                             chips></v-select>
                             <v-btn type="submit" class="mx-1">Apply Filters</v-btn>

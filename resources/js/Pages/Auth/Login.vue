@@ -1,5 +1,11 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
+import { reactive } from 'vue'
+
+const variables = reactive({
+    snackbar: true
+})
 
 const form = useForm({
     username: null,
@@ -40,7 +46,7 @@ const form = useForm({
                             label="Password"
                             type="password"
                             ></v-text-field>
-
+                            <Link class="d-flex justify-end" href="/register">Register</Link>
                             <v-checkbox
                             v-model="form.remember"
                             label="Remember Me"
@@ -67,5 +73,23 @@ const form = useForm({
             </v-col>
         </v-row>
     </v-container>
-        
+    <v-snackbar
+    v-model="$page.props.flash.snackbar"
+    color="success"
+    vertical
+    top
+    location="top"
+    >
+        <div class="text-subtitle-1 pb-2">Success</div>
+        Successfully Registered
+
+        <template v-slot:actions>
+            <v-btn
+                variant="text"
+                @click="$page.props.flash.snackbar = false"
+            >
+                Close
+            </v-btn>
+      </template>
+    </v-snackbar>
 </template>
